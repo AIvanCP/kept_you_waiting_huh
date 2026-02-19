@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ModMetaData>
+
+  <!-- ============================================================
+       Kept You Waiting, Huh? — A RimWorld 1.6 Mod
+       Plays a custom sound whenever a pawn joins your colony
+       from outside the map (wanderers, refugees, events, etc.)
+       Optionally plays a sound when traders arrive.
+       ============================================================ -->
+
+  <packageId>authoryou.keptyouwaitinghuh</packageId>
+  <name>Kept You Waiting, Huh?</name>
+  <author>YourName</author>
+  <url>https://github.com/YourName/kept_you_waiting_huh</url>
+
+  <description>
+Plays a custom sound effect when a pawn joins your colony from outside the map
+(wanderers, refugees, event-based arrivals, etc.).
+
+Does NOT trigger on in-colony prisoner recruitment.
+
+Optional (disabled by default): also play a sound when orbital (comms) traders
+or walk-in trader caravans arrive at your colony.
+
+Configure everything in Mod Settings → Kept You Waiting, Huh?
+
+Replace the placeholder .ogg files in the Sounds/JoinSound/ folder with your
+own audio. See the README for details.
+  </description>
+
+  <supportedVersions>
+    <li>1.6</li>
+  </supportedVersions>
+
+  <!-- Harmony is bundled with RimWorld 1.3+ — no extra dependency needed -->
+  <modDependencies />
+
+  <loadAfter>
+    <!-- Load after core so Harmony is ready -->
+    <li>
+      <packageId>brrainz.harmony</packageId>
+    </li>
+  </loadAfter>
+
+</ModMetaData>

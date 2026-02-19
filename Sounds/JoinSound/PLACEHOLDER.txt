@@ -1,0 +1,39 @@
+AUDIO PLACEHOLDER — Kept You Waiting, Huh?
+==========================================
+
+This folder must contain your .ogg audio file(s) before the mod will produce
+any sound.  RimWorld requires OGG Vorbis format.
+
+REQUIRED FILE
+─────────────
+  pawn_joined.ogg
+    Played when a pawn joins the colony from outside the map.
+    Also used for trader arrival sounds unless you create a separate file.
+
+OPTIONAL FILE
+─────────────
+  trader_arrived.ogg
+    If present, update the <clipPath> in:
+      Defs/SoundDefs/JoinSound_Sounds.xml
+    Change the trader SoundDef's clipPath from
+      JoinSound/pawn_joined
+    to
+      JoinSound/trader_arrived
+
+RECOMMENDED AUDIO SPECS
+────────────────────────
+  Format  : OGG Vorbis (mandatory for RimWorld)
+  Channels: Mono or Stereo
+  Sample rate: 44100 Hz
+  Bitrate : 128–192 kbps
+  Duration: Short (0.5 – 3 seconds recommended)
+
+FREE CONVERTERS
+───────────────
+  • Audacity (free, open-source) — export as OGG
+  • ffmpeg:  ffmpeg -i input.mp3 -c:a libvorbis -q:a 5 pawn_joined.ogg
+  • Online:  https://convertio.co/mp3-ogg/
+
+DO NOT commit your .ogg file if you don't own the rights to it.
+The .gitignore in the repo root already ignores *.ogg by default —
+remove that line if you DO want to commit your own original sounds.

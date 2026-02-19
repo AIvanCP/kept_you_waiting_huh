@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  JoinSoundMod.csproj — RimWorld 1.6 Mod (Kept You Waiting, Huh?)
+  Target: .NET Framework 4.7.2  (required by RimWorld 1.6)
+  Build tool: Visual Studio 2022 or MSBuild 17+
+
+  ── BEFORE BUILDING ────────────────────────────────────────────────────────
+  Set the RimWorldPath property below to your actual RimWorld installation.
+  Common locations:
+    Steam (Windows)  : C:\Program Files (x86)\Steam\steamapps\common\RimWorld
+    Steam (Linux)    : ~/.steam/steam/steamapps/common/RimWorld
+    GOG (Windows)    : C:\GOG Games\RimWorld
+
+  You can also override it from the command line:
+    msbuild JoinSoundMod.csproj /p:RimWorldPath="D:\Games\RimWorld"
+  ───────────────────────────────────────────────────────────────────────────
+-->
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+
+  <!-- ── User-configurable: set this to your RimWorld folder ── -->
+  <PropertyGroup>
+    <RimWorldPath Condition="'$(RimWorldPath)' == ''">C:\Program Files (x86)\Steam\steamapps\common\RimWorld</RimWorldPath>
+  </PropertyGroup>
+
+  <!-- ── Project settings ── -->
+  <PropertyGroup>
+    <Configuration Condition="'$(Configuration)' == ''">Release</Configuration>
+    <Platform Condition="'$(Platform)' == ''">AnyCPU</Platform>
+
+    <ProjectGuid>{A1B2C3D4-E5F6-7890-ABCD-EF1234567890}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>JoinSoundMod</RootNamespace>
+    <AssemblyName>JoinSoundMod</AssemblyName>
+
+    <!-- RimWorld 1.6 requires .NET Framework 4.7.2 -->
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <LangVersion>7.3</LangVersion>
+
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+    <Nullable>disable</Nullable>
+  </PropertyGroup>
+
+  <!-- ── Release build settings ── -->
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
+    <DebugType>none</DebugType>
+    <Optimize>true</Optimize>
+    <!-- Output DLL goes directly into the mod's Assemblies/ folder -->
+    <OutputPath>..\..\Assemblies\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <!-- Do not copy referenced DLLs next to output — they live in RimWorld -->
+    <CopyLocalLockFileAssemblies>false</CopyLocalLockFileAssemblies>
+  </PropertyGroup>
+
+  <!-- ── Debug build settings ── -->
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\Assemblies\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+
+  <!-- ── RimWorld / Unity references ─────────────────────────────────────
+       These DLLs ship with RimWorld and must NOT be included in the mod.
+       Set Private=False so they are not copied to the output folder.
+       ───────────────────────────────────────────────────────────────────── -->
+  <ItemGroup>
+
+    <!-- Core RimWorld + Unity game assembly -->
+    <Reference Include="Assembly-CSharp">
+      <HintPath>$(RimWorldPath)\RimWorldWin64_Data\Managed\Assembly-CSharp.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+
+    <!-- UnityEngine core (Vector3, Mathf, etc.) -->
+    <Reference Include="UnityEngine.CoreModule">
+      <HintPath>$(RimWorldPath)\RimWorldWin64_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+
+    <!-- Harmony — bundled with RimWorld 1.3+ (0Harmony.dll in the Managed folder) -->
+    <Reference Include="0Harmony">
+      <HintPath>$(RimWorldPath)\RimWorldWin64_Data\Managed\0Harmony.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+
+    <!-- Standard .NET framework references -->
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="Microsoft.CSharp" />
+
+  </ItemGroup>
+
+  <!-- ── Source files ── -->
+  <ItemGroup>
+    <Compile Include="JoinSoundMod.cs" />
+    <Compile Include="JoinSoundPatch.cs" />
+    <Compile Include="JoinSoundSettings.cs" />
+  </ItemGroup>
+
+  <!-- Standard MSBuild targets -->
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+
+</Project>

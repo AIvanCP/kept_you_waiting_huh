@@ -1,0 +1,38 @@
+# ═══════════════════════════════════════════════════════════════════════
+#  .gitignore — Kept You Waiting, Huh? (RimWorld Mod)
+# ═══════════════════════════════════════════════════════════════════════
+
+# ── Build artifacts ──────────────────────────────────────────────────
+Source/*/bin/
+Source/*/obj/
+*.user
+*.suo
+.vs/
+
+# ── Compiled DLL (committed separately or built locally) ─────────────
+# Comment this out if you WANT to commit the compiled DLL.
+# Most mod repos include the DLL so users can install without building.
+# Assemblies/*.dll
+
+# ── Audio files ───────────────────────────────────────────────────────
+# Uncomment if you do NOT own the sound and cannot redistribute it.
+# Sounds/**/*.ogg
+
+# ── OS junk ───────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+desktop.ini
+*.lnk
+
+# ── JetBrains Rider / Visual Studio ──────────────────────────────────
+.idea/
+*.sln.DotSettings.user
+*.DotSettings
+
+# ── RimWorld log / save files that might end up here accidently ───────
+*.log
+*.rws
+
+# ── NuGet (if ever used) ──────────────────────────────────────────────
+packages/
+*.nupkg

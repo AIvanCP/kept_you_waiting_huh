@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  PublisherPlus.xml — Steam Workshop upload configuration
+  Used by the Publisher Plus mod:
+    https://steamcommunity.com/sharedfiles/filedetails/?id=1574011459
+
+  HOW TO USE
+  ──────────
+  1. Install Publisher Plus from Steam Workshop.
+  2. Enable it alongside this mod.
+  3. In-game: Options → Publisher Plus.
+  4. Select "Kept You Waiting, Huh?" from the list.
+  5. Review the fields below, then click Upload.
+
+  After first upload, fill in the <workshopId> with the number from
+  the Workshop URL so future uploads update the same item.
+-->
+<PublisherPlus>
+
+  <!-- Package ID must match About/About.xml exactly -->
+  <packageId>authoryou.keptyouwaitinghuh</packageId>
+
+  <!-- Fill in after first upload:
+       e.g., https://steamcommunity.com/sharedfiles/filedetails/?id=XXXXXXXXXX
+             → workshopId = XXXXXXXXXX
+  -->
+  <workshopId></workshopId>
+
+  <!-- Steam Workshop description (Markdown-like BBCode supported) -->
+  <description>
+[h1]Kept You Waiting, Huh?[/h1]
+
+Plays a custom sound effect when a pawn [b]joins your colony from outside the map[/b] — wanderer joins, refugee joins, event-based arrivals, etc.
+
+[b]Does NOT[/b] trigger when a prisoner is recruited in-colony.
+
+[h2]Optional Features[/h2]
+[list]
+  [*] Sound when an orbital / comms-console trader contacts the colony (off by default)
+  [*] Sound when a walk-in trader caravan arrives (off by default)
+[/list]
+
+[h2]Configuration[/h2]
+All options (enable/disable, volume) are in [b]Options → Mod Settings → Kept You Waiting, Huh?[/b]
+
+[h2]Audio Setup[/h2]
+The mod ships without an audio file. Place your own [b]pawn_joined.ogg[/b] (OGG Vorbis format) in:
+[code]Mods/kept_you_waiting_huh/Sounds/JoinSound/pawn_joined.ogg[/code]
+
+[h2]Source Code[/h2]
+Available on GitHub: https://github.com/YourName/kept_you_waiting_huh
+
+[h2]Compatible With[/h2]
+All mods — lightweight Harmony patch, no polling, no ticking.
+
+[i]"Kept you waiting, huh?" — Solid Snake[/i]
+  </description>
+
+  <!-- Steam Workshop tags — pick appropriate ones -->
+  <tags>
+    <li>Mod</li>
+    <li>Audio</li>
+    <li>Utility</li>
+    <li>1.6</li>
+  </tags>
+
+  <!-- Visibility: Public / FriendsOnly / Private -->
+  <visibility>Public</visibility>
+
+  <!-- Path to preview image (relative to mod root, .jpg or .png, ≤ 1 MB) -->
+  <!-- Create a 512x512 or larger image and uncomment this line: -->
+  <!-- <previewImagePath>About\Preview.png</previewImagePath> -->
+
+</PublisherPlus>

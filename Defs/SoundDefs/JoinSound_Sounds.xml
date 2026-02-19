@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Defs>
+
+  <!-- ============================================================
+       PAWN JOINED SOUND
+       Plays when a pawn joins the colony from outside the map.
+
+       HOW TO REPLACE THE PLACEHOLDER AUDIO:
+         1. Encode your audio file as OGG Vorbis (mono or stereo, 44100 Hz recommended).
+         2. Name it "pawn_joined.ogg".
+         3. Drop it into:  Sounds/JoinSound/pawn_joined.ogg
+         4. Restart RimWorld (or use Dev Mode → Reload defs).
+
+       The clipPath is relative to the mod's Sounds/ folder and
+       must NOT include the .ogg extension.
+       ============================================================ -->
+
+  <SoundDef>
+    <defName>JoinSound_PawnJoined</defName>
+    <label>Pawn joined colony</label>
+
+    <!-- MapOnly: sound plays in the context of the map.
+         Use "Any" if you want it to play on the main menu too (not recommended). -->
+    <context>MapOnly</context>
+
+    <subSounds>
+      <li>
+        <!-- Volume range gives a slight natural variation each time -->
+        <volumeRange>
+          <min>0.9</min>
+          <max>1.0</max>
+        </volumeRange>
+
+        <!-- Pitch range: 1.0 = no shift. Widen slightly for variety. -->
+        <pitchRange>
+          <min>0.97</min>
+          <max>1.03</max>
+        </pitchRange>
+
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <!-- Path is relative to this mod's Sounds/ folder. No extension. -->
+            <clipPath>JoinSound/pawn_joined</clipPath>
+          </li>
+        </grains>
+      </li>
+    </subSounds>
+  </SoundDef>
+
+
+  <!-- ============================================================
+       TRADER ARRIVED SOUND  (optional feature, off by default)
+       Plays when any trader arrives — either orbital (comms console)
+       or a walk-in caravan trader.
+
+       HOW TO USE A DIFFERENT CLIP FOR TRADERS:
+         Place "trader_arrived.ogg" in Sounds/JoinSound/ and change
+         the clipPath below to "JoinSound/trader_arrived".
+         By default it reuses the same clip as the join sound.
+       ============================================================ -->
+
+  <SoundDef>
+    <defName>JoinSound_TraderArrived</defName>
+    <label>Trader arrived at colony</label>
+
+    <context>MapOnly</context>
+
+    <subSounds>
+      <li>
+        <volumeRange>
+          <min>0.85</min>
+          <max>0.95</max>
+        </volumeRange>
+
+        <pitchRange>
+          <min>0.95</min>
+          <max>1.05</max>
+        </pitchRange>
+
+        <grains>
+          <li Class="AudioGrain_Clip">
+            <!-- Change to "JoinSound/trader_arrived" if you want a separate clip -->
+            <clipPath>JoinSound/pawn_joined</clipPath>
+          </li>
+        </grains>
+      </li>
+    </subSounds>
+  </SoundDef>
+
+</Defs>
