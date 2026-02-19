@@ -23,8 +23,8 @@ namespace JoinSoundMod
     {
         static HarmonySetup()
         {
-            // The Harmony instance ID should be unique — using packageId convention.
-            var harmony = new Harmony("authoryou.keptyouwaitinghuh");
+            // Package ID matches About.xml → "aivancp.keptyouwaitinghuh"
+            var harmony = new Harmony("aivancp.keptyouwaitinghuh");
             harmony.PatchAll();
             Log.Message("[KeptYouWaitingHuh] Harmony patches applied.");
         }

@@ -8,10 +8,10 @@
        Optionally plays a sound when traders arrive.
        ============================================================ -->
 
-  <packageId>authoryou.keptyouwaitinghuh</packageId>
+  <packageId>aivancp.keptyouwaitinghuh</packageId>
   <name>Kept You Waiting, Huh?</name>
-  <author>YourName</author>
-  <url>https://github.com/YourName/kept_you_waiting_huh</url>
+  <author>AIvanCP</author>
+  <url>https://github.com/AIvanCP/kept_you_waiting_huh</url>
 
   <description>
 Plays a custom sound effect when a pawn joins your colony from outside the map

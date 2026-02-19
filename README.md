@@ -6,6 +6,8 @@
 [![RimWorld 1.6](https://img.shields.io/badge/RimWorld-1.6-blue)](https://store.steampowered.com/app/294100/RimWorld/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green)](LICENSE)
 
+> GitHub: <https://github.com/AIvanCP/kept_you_waiting_huh>
+
 ---
 
 ## ✨ Features
@@ -76,7 +78,7 @@ ffmpeg -i your_sound.mp3 -c:a libvorbis -q:a 5 pawn_joined.ogg
 
 1. **Clone the repository:**
    ```powershell
-   git clone https://github.com/YourName/kept_you_waiting_huh.git
+   git clone https://github.com/AIvanCP/kept_you_waiting_huh.git
    cd kept_you_waiting_huh
    ```
 
@@ -231,7 +233,7 @@ Pull requests are welcome! If you'd like to contribute:
 3. Commit your changes with a clear message.
 4. Push and open a Pull Request.
 
-Please report bugs via [GitHub Issues](https://github.com/YourName/kept_you_waiting_huh/issues).
+Please report bugs via [GitHub Issues](https://github.com/AIvanCP/kept_you_waiting_huh/issues).
 
 ---
 
@@ -243,6 +245,7 @@ Please report bugs via [GitHub Issues](https://github.com/YourName/kept_you_wait
 
 ## 🙏 Credits
 
+- **Author:** [AIvanCP](https://github.com/AIvanCP)
 - **Harmony** by Andreas Pardeike ([@pardeike](https://github.com/pardeike)) — used for patching.
 - Inspired by the original *Metal Gear Solid* codec call tone.  
   *"Kept you waiting, huh?"* — Solid Snake

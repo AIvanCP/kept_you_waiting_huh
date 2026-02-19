@@ -18,7 +18,7 @@
 <PublisherPlus>
 
   <!-- Package ID must match About/About.xml exactly -->
-  <packageId>authoryou.keptyouwaitinghuh</packageId>
+  <packageId>aivancp.keptyouwaitinghuh</packageId>
 
   <!-- Fill in after first upload:
        e.g., https://steamcommunity.com/sharedfiles/filedetails/?id=XXXXXXXXXX
@@ -48,7 +48,7 @@ The mod ships without an audio file. Place your own [b]pawn_joined.ogg[/b] (OGG 
 [code]Mods/kept_you_waiting_huh/Sounds/JoinSound/pawn_joined.ogg[/code]
 
 [h2]Source Code[/h2]
-Available on GitHub: https://github.com/YourName/kept_you_waiting_huh
+Available on GitHub: https://github.com/AIvanCP/kept_you_waiting_huh
 
 [h2]Compatible With[/h2]
 All mods — lightweight Harmony patch, no polling, no ticking.
