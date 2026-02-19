@@ -19,7 +19,7 @@
 
   <!-- ── User-configurable: set this to your RimWorld folder ── -->
   <PropertyGroup>
-    <RimWorldPath Condition="'$(RimWorldPath)' == ''">C:\Program Files (x86)\Steam\steamapps\common\RimWorld</RimWorldPath>
+    <RimWorldPath Condition="'$(RimWorldPath)' == ''">D:\Game\Rimworld</RimWorldPath>
   </PropertyGroup>
 
   <!-- ── Project settings ── -->
@@ -33,8 +33,9 @@
     <RootNamespace>JoinSoundMod</RootNamespace>
     <AssemblyName>JoinSoundMod</AssemblyName>
 
-    <!-- RimWorld 1.6 requires .NET Framework 4.7.2 -->
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <!-- RimWorld 1.6 runs on Unity/Mono; targeting 4.8.1 (installed on this machine).
+         4.8.1 is fully backwards-compatible with 4.7.2 — no API differences for mod code. -->
+    <TargetFrameworkVersion>v4.8.1</TargetFrameworkVersion>
     <LangVersion>7.3</LangVersion>
 
     <FileAlignment>512</FileAlignment>
@@ -84,9 +85,10 @@
       <Private>False</Private>
     </Reference>
 
-    <!-- Harmony — bundled with RimWorld 1.3+ (0Harmony.dll in the Managed folder) -->
+    <!-- Harmony — shipped as a standalone mod (packageId: brrainz.harmony) -->
+    <!-- Steam Workshop ID 1446523594, 1.6 folder -->
     <Reference Include="0Harmony">
-      <HintPath>$(RimWorldPath)\RimWorldWin64_Data\Managed\0Harmony.dll</HintPath>
+      <HintPath>$(RimWorldPath)\Mods\1446523594\1.6\Assemblies\0Harmony.dll</HintPath>
       <Private>False</Private>
     </Reference>
 

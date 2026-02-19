@@ -68,7 +68,6 @@ All mods — lightweight Harmony patch, no polling, no ticking.
   <visibility>Public</visibility>
 
   <!-- Path to preview image (relative to mod root, .jpg or .png, ≤ 1 MB) -->
-  <!-- Create a 512x512 or larger image and uncomment this line: -->
-  <!-- <previewImagePath>About\Preview.png</previewImagePath> -->
+  <previewImagePath>About\Preview.jpg</previewImagePath>
 
 </PublisherPlus>
