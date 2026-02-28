@@ -17,15 +17,17 @@
 Plays a custom sound effect when a pawn joins your colony from outside the map
 (wanderers, refugees, event-based arrivals, etc.).
 
-Does NOT trigger on in-colony prisoner recruitment.
+Does NOT trigger on in-colony prisoner recruitment or slave emancipation.
 
-Optional (disabled by default): also play a sound when orbital (comms) traders
-or walk-in trader caravans arrive at your colony.
+Optional (disabled by default in Mod Settings):
+  - Sound when an orbital / comms-console trader contacts your colony.
+  - Sound when a walk-in trader caravan arrives on the map.
 
-Configure everything in Mod Settings → Kept You Waiting, Huh?
+Note: tribute caravans (empire) use a different game system and do not
+trigger the trader sound.
 
-Replace the placeholder .ogg files in the Sounds/JoinSound/ folder with your
-own audio. See the README for details.
+Audio is included. Configure volume and toggles in:
+  Options → Mod Settings → Kept You Waiting, Huh?
   </description>
 
   <supportedVersions>

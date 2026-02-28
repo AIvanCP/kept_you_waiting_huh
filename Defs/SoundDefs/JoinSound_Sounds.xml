@@ -5,23 +5,19 @@
        PAWN JOINED SOUND
        Plays when a pawn joins the colony from outside the map.
 
-       HOW TO REPLACE THE PLACEHOLDER AUDIO:
-         1. Encode your audio file as OGG Vorbis (mono or stereo, 44100 Hz recommended).
-         2. Name it "pawn_joined.ogg".
-         3. Drop it into:  Sounds/JoinSound/pawn_joined.ogg
-         4. Restart RimWorld (or use Dev Mode → Reload defs).
-
-       The clipPath is relative to the mod's Sounds/ folder and
-       must NOT include the .ogg extension.
+       Audio file: Sounds/JoinSound/pawn_joined.ogg  (already included)
+       To swap the sound, replace pawn_joined.ogg with your own OGG Vorbis file
+       and restart RimWorld.
        ============================================================ -->
 
   <SoundDef>
     <defName>JoinSound_PawnJoined</defName>
     <label>Pawn joined colony</label>
 
-    <!-- MapOnly: sound plays in the context of the map.
-         Use "Any" if you want it to play on the main menu too (not recommended). -->
-    <context>MapOnly</context>
+    <!-- Any: plays regardless of whether a colony map is currently open.
+         This matters if a pawn joins while you are on the world map view.
+         Do NOT use MapOnly here or the sound will be silently skipped. -->
+    <context>Any</context>
 
     <subSounds>
       <li>
@@ -63,7 +59,10 @@
     <defName>JoinSound_TraderArrived</defName>
     <label>Trader arrived at colony</label>
 
-    <context>MapOnly</context>
+    <!-- Any: trader caravans and orbital traders can arrive while you are on
+         the world map — MapOnly would silence the sound entirely in that case.
+         Any = plays in all contexts (map, world map, etc.). -->
+    <context>Any</context>
 
     <subSounds>
       <li>

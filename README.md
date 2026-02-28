@@ -20,6 +20,7 @@
 | Slave emancipated | ❌ Never | — |
 | Orbital / comms trader | ⚙️ Optional (off by default) | Toggle + volume |
 | Walk-in trader caravan | ⚙️ Optional (off by default) | Toggle + volume |
+| Empire tribute caravan | ❌ Never (different game system) | — |
 
 All settings are in **Options → Mod Settings → Kept You Waiting, Huh?**
 
@@ -41,20 +42,17 @@ All settings are in **Options → Mod Settings → Kept You Waiting, Huh?**
 
 ---
 
-## 🔊 Audio Setup
+## 🔊 Audio
 
-The mod ships with **no audio file** — you must provide your own `.ogg` file.
+The sound file (`pawn_joined.ogg`) is **already included** in the mod.
 
-1. Encode your audio as **OGG Vorbis** (`.ogg`).  
-   Recommended: mono or stereo, 44 100 Hz, 128–192 kbps, ≤ 3 seconds.
-2. Rename it to `pawn_joined.ogg`.
-3. Place it at:
-   ```
-   Sounds/JoinSound/pawn_joined.ogg
-   ```
+To replace it with your own clip:
+1. Encode your audio as **OGG Vorbis** (`.ogg`). Recommended: mono or stereo, 44 100 Hz, \u2264 3 seconds.
+2. Replace `Sounds/JoinSound/pawn_joined.ogg` with your file.
+3. Restart RimWorld.
 
 **Optional — separate trader sound:**  
-Name the file `trader_arrived.ogg`, place it in the same folder, then edit
+Name a second file `trader_arrived.ogg`, place it in `Sounds/JoinSound/`, then edit
 `Defs/SoundDefs/JoinSound_Sounds.xml` and change the trader `<clipPath>` from
 `JoinSound/pawn_joined` to `JoinSound/trader_arrived`.
 
