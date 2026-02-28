@@ -169,7 +169,7 @@ namespace JoinSoundMod
                 if (Current.ProgramState != ProgramState.Playing)         return;
 
                 SoundHelper.PlayOnCamera(
-                    "JoinSound_TraderArrived", JoinSoundMod.Settings.traderSoundVolume);
+                    SoundHelper.TraderSoundDefName, JoinSoundMod.Settings.traderSoundVolume);
             }
             catch (Exception ex)
             {
@@ -201,7 +201,7 @@ namespace JoinSoundMod
                 if (Current.ProgramState != ProgramState.Playing)         return;
 
                 SoundHelper.PlayOnCamera(
-                    "JoinSound_TraderArrived", JoinSoundMod.Settings.traderSoundVolume);
+                    SoundHelper.TraderSoundDefName, JoinSoundMod.Settings.traderSoundVolume);
             }
             catch (Exception ex)
             {
@@ -217,6 +217,17 @@ namespace JoinSoundMod
 
     internal static class SoundHelper
     {
+        /// <summary>
+        /// Returns the SoundDef name to use for trader arrival events.
+        /// By default (useSeparateTraderSound = false) this is the same def
+        /// as the colonist join sound, so the user hears one consistent clip.
+        /// When the setting is on, it uses JoinSound_TraderArrived instead,
+        /// letting the user supply a different trader_arrived.ogg.
+        /// </summary>
+        internal static string TraderSoundDefName =>
+            JoinSoundMod.Settings.useSeparateTraderSound
+                ? "JoinSound_TraderArrived"
+                : "JoinSound_PawnJoined";
         /// <summary>
         /// Resolves a SoundDef by name and plays it on the camera.
         /// Safe to call from any game state; null-checked throughout.

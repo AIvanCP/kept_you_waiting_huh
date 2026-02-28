@@ -74,14 +74,22 @@ namespace JoinSoundMod
                 listing.Label($"Trader sound volume: {Settings.traderSoundVolume:P0}",
                     tooltip: "Scales the volume of trader-arrival sounds. 100 % = full volume.");
                 Settings.traderSoundVolume = listing.Slider(Settings.traderSoundVolume, 0f, 2f);
+
+                listing.Gap(6f);
+                listing.CheckboxLabeled(
+                    label:   "Use a separate trader sound clip",
+                    checkOn: ref Settings.useSeparateTraderSound,
+                    tooltip: "OFF (default): trader arrivals reuse the same sound as a colonist joining.\n" +
+                             "ON: trader arrivals play JoinSound_TraderArrived instead — place a \"trader_arrived.ogg\" " +
+                             "in Sounds/JoinSound/ and update the clipPath in Defs/SoundDefs/JoinSound_Sounds.xml.");
             }
 
             listing.GapLine(12f);
 
             // ── Audio file hint ───────────────────────────────────────────
             listing.Label("<color=#aaaaaa>Place your .ogg files in:  Mods/kept_you_waiting_huh/Sounds/JoinSound/</color>");
-            listing.Label("<color=#aaaaaa>  • pawn_joined.ogg   — played on colonist join (and traders if no separate clip)</color>");
-            listing.Label("<color=#aaaaaa>  • trader_arrived.ogg — optional separate clip for trader events (see SoundDefs XML)</color>");
+            listing.Label("<color=#aaaaaa>  • pawn_joined.ogg    — colonist join sound (also used for traders by default)</color>");
+            listing.Label("<color=#aaaaaa>  • trader_arrived.ogg — optional separate clip; enable \"Use a separate trader sound clip\" above</color>");
 
             listing.End();
 

@@ -40,6 +40,14 @@ namespace JoinSoundMod
         /// </summary>
         public float traderSoundVolume = 1.0f;
 
+        /// <summary>
+        /// When false (default), trader arrivals play the same sound as a colonist
+        /// joining (JoinSound_PawnJoined). When true, they play the separate
+        /// JoinSound_TraderArrived def — useful if you place a trader_arrived.ogg
+        /// in Sounds/JoinSound/ and update the SoundDef clipPath.
+        /// </summary>
+        public bool useSeparateTraderSound = false;
+
 
         // ── Serialization ────────────────────────────────────────────────────
 
@@ -54,9 +62,10 @@ namespace JoinSoundMod
             Scribe_Values.Look(ref enableJoinSound,         "enableJoinSound",         true);
             Scribe_Values.Look(ref joinSoundVolume,         "joinSoundVolume",         1.0f);
 
-            Scribe_Values.Look(ref enableCommsTraderSound,  "enableCommsTraderSound",  false);
-            Scribe_Values.Look(ref enableWalkInTraderSound, "enableWalkInTraderSound", false);
-            Scribe_Values.Look(ref traderSoundVolume,       "traderSoundVolume",       1.0f);
+            Scribe_Values.Look(ref enableCommsTraderSound,   "enableCommsTraderSound",   false);
+            Scribe_Values.Look(ref enableWalkInTraderSound,  "enableWalkInTraderSound",  false);
+            Scribe_Values.Look(ref traderSoundVolume,        "traderSoundVolume",        1.0f);
+            Scribe_Values.Look(ref useSeparateTraderSound,   "useSeparateTraderSound",   false);
         }
     }
 }
