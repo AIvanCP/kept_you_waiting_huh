@@ -14,10 +14,12 @@
     <defName>JoinSound_PawnJoined</defName>
     <label>Pawn joined colony</label>
 
-    <!-- Any: plays regardless of whether a colony map is currently open.
-         This matters if a pawn joins while you are on the world map view.
-         Do NOT use MapOnly here or the sound will be silently skipped. -->
-    <context>Any</context>
+    <!-- MapOnly: RimWorld requires this for on-camera sounds (context=Any causes a
+         config error in 1.6 and silently breaks playback). A map will always be
+         loaded when a colonist joins or a trader arrives on the colony map.
+         If you are on the world map when a trader is announced, the sound won't
+         play — that is acceptable and expected behaviour. -->
+    <context>MapOnly</context>
 
     <subSounds>
       <li>
@@ -59,10 +61,9 @@
     <defName>JoinSound_TraderArrived</defName>
     <label>Trader arrived at colony</label>
 
-    <!-- Any: trader caravans and orbital traders can arrive while you are on
-         the world map — MapOnly would silence the sound entirely in that case.
-         Any = plays in all contexts (map, world map, etc.). -->
-    <context>Any</context>
+    <!-- MapOnly: required to avoid the 1.6 config validation error that breaks
+         sounds marked context=Any without an explicit on-camera flag. -->
+    <context>MapOnly</context>
 
     <subSounds>
       <li>

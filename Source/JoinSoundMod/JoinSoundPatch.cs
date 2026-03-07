@@ -11,18 +11,26 @@ namespace JoinSoundMod
     // =====================================================================
     //  Kept You Waiting, Huh? — Harmony Patches
     //
-    //  Three patches in total:
-    //    1. Patch_Pawn_SetFaction        — colonist joins from outside map
-    //    2. Patch_OrbitalTraderArrival   — comms/orbital trader (opt-in)
-    //    3. Patch_WalkInTraderArrival    — walk-in caravan trader (opt-in)
+    //  Three patches:
+    //    1. Pawn.SetFaction              — colonist joins from outside map
+    //    2. PassingShipManager.AddShip   — ANY orbital/passing trade ship
+    //                                       (vanilla + all mods, including
+    //                                        gravship mods) — opt-in
+    //    3. IncidentWorker_TraderCaravanArrival.TryExecuteWorker
+    //                                   — walk-in caravan trader — opt-in
     //
-    //  Patches are applied explicitly (not via PatchAll) so any failure is
-    //  logged individually with a clear message.
+    //  WHY PassingShipManager.AddShip instead of OrbitalTraderArrival?
+    //    IncidentWorker_OrbitalTraderArrival is only called for VANILLA
+    //    orbital traders.  Mods like HybridPoweredGravships and similar
+    //    use custom incident workers that bypass it entirely.  Every ship
+    //    that lands as a trader — vanilla or modded — must call
+    //    PassingShipManager.AddShip, making it the universal hook.
     //
-    //  WHY context=Any IN THE SOUNDDEF:
-    //    Trader events can fire while the player is on the world map.
-    //    A SoundDef with context=MapOnly is silently skipped when no colony
-    //    map is open.  context=Any lets it play in all views.
+    //  WHY context=MapOnly in the SoundDef XML?
+    //    context=Any triggers a RimWorld 1.6 config validation error
+    //    ("non-on-camera subsounds should use MapOnly") which causes the
+    //    sound to be silently skipped at runtime.  MapOnly is correct
+    //    because a map is always loaded when these events are relevant.
     // =====================================================================
 
     [StaticConstructorOnStartup]
@@ -41,14 +49,16 @@ namespace JoinSoundMod
                                nameof(Patch_Pawn_SetFaction.Postfix)),
                 label:     "Pawn.SetFaction");
 
-            // ── Patch 2: OrbitalTrader (comms console) ───────────────────
+            // ── Patch 2: PassingShipManager.AddShip (ALL trade ships: vanilla + modded) ──
+            // This fires whenever any ship is added to the passing ships list.
+            // It is universal: HybridPoweredGravships, OrbitalTradeColumn, and
+            // vanilla comms-console traders all go through this method.
             ApplyPatch(harmony,
-                original:  AccessTools.Method(typeof(IncidentWorker_OrbitalTraderArrival),
-                               "TryExecuteWorker"),
+                original:  AccessTools.Method(typeof(PassingShipManager), "AddShip"),
                 prefix:    null,
-                postfix:   new HarmonyMethod(typeof(Patch_OrbitalTraderArrival),
-                               nameof(Patch_OrbitalTraderArrival.Postfix)),
-                label:     "IncidentWorker_OrbitalTraderArrival.TryExecuteWorker");
+                postfix:   new HarmonyMethod(typeof(Patch_PassingShip_AddShip),
+                               nameof(Patch_PassingShip_AddShip.Postfix)),
+                label:     "PassingShipManager.AddShip");
 
             // ── Patch 3: Walk-in trader caravan ─────────────────────────
             ApplyPatch(harmony,
@@ -148,23 +158,25 @@ namespace JoinSoundMod
 
 
     // =====================================================================
-    //  PATCH 2 — IncidentWorker_OrbitalTraderArrival.TryExecuteWorker
+    //  PATCH 2 — PassingShipManager.AddShip
     //
-    //  Fires when a comms-console / orbital trader contacts the colony.
-    //  Only plays if Settings.enableCommsTraderSound is on (default: OFF).
+    //  Called whenever ANY trade ship (passing ship) is added to the map’s
+    //  passing ship manager.  This covers:
+    //    • Vanilla orbital traders (comms console + random events)
+    //    • Modded trader ships: HybridPoweredGravships, OrbitalTradeColumn,
+    //      BiggerGravship, and any other mod that adds a TradeShip via
+    //      the standard passing-ship system.
     //
-    //  NOTE: The orbital trader window can open while you are on the world
-    //  map.  The SoundDef context must be "Any" (not "MapOnly") for the
-    //  sound to be heard.
+    //  The method is void (no __result) — if it was called, the ship was
+    //  successfully added.  Only plays if enableCommsTraderSound is on.
     // =====================================================================
 
-    internal static class Patch_OrbitalTraderArrival
+    internal static class Patch_PassingShip_AddShip
     {
-        internal static void Postfix(bool __result)
+        internal static void Postfix()
         {
             try
             {
-                if (!__result)                                             return;
                 if (!JoinSoundMod.Settings.enableCommsTraderSound)        return;
                 if (Current.ProgramState != ProgramState.Playing)         return;
 
@@ -173,7 +185,7 @@ namespace JoinSoundMod
             }
             catch (Exception ex)
             {
-                Log.Error($"[KeptYouWaitingHuh] Patch_OrbitalTraderArrival.Postfix: {ex}");
+                Log.Error($"[KeptYouWaitingHuh] Patch_PassingShip_AddShip.Postfix: {ex}");
             }
         }
     }
@@ -230,13 +242,14 @@ namespace JoinSoundMod
                 : "JoinSound_PawnJoined";
         /// <summary>
         /// Resolves a SoundDef by name and plays it on the camera.
-        /// Safe to call from any game state; null-checked throughout.
-        ///
-        /// IMPORTANT: The SoundDef's XML must use context=Any (not MapOnly)
-        /// so it plays even when the player is on the world map.
+        /// Returns silently if no colony map is loaded (world-map view) because
+        /// the SoundDef uses context=MapOnly.
         /// </summary>
         internal static void PlayOnCamera(string defName, float volumeMultiplier = 1f)
         {
+            // MapOnly sounds need an active map; skip gracefully on world-map view.
+            if (Find.CurrentMap == null) return;
+
             SoundDef def = SoundDef.Named(defName);
             if (def == null || def.isUndefined)
             {
