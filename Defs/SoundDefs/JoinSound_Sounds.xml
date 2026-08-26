@@ -14,20 +14,31 @@
     <defName>JoinSound_PawnJoined</defName>
     <label>Pawn joined colony</label>
 
-    <!-- MapOnly: RimWorld requires this for on-camera sounds (context=Any causes a
-         config error in 1.6 and silently breaks playback). A map will always be
-         loaded when a colonist joins or a trader arrives on the colony map.
-         If you are on the world map when a trader is announced, the sound won't
-         play — that is acceptable and expected behaviour. -->
+    <!-- MapOnly is correct - it is what 1085 of the vanilla SoundDefs use. (There is
+         no "Any" SoundContext; the only other values vanilla uses are WorldOnly and
+         PlayerStarter.) A map is always loaded when a colonist joins or a trader
+         arrives on the colony map. On the world map the sound is skipped, which is
+         expected behaviour. -->
     <context>MapOnly</context>
 
     <subSounds>
       <li>
-        <!-- Volume range gives a slight natural variation each time -->
-        <volumeRange>
-          <min>0.9</min>
-          <max>1.0</max>
-        </volumeRange>
+        <!-- REQUIRED: this def is played through SoundInfo.OnCamera() in
+             SoundHelper.PlayOnCamera(). Without onCamera the subsound is placed in
+             world space and attenuated by camera distance instead of playing
+             straight to the listener. -->
+        <onCamera>True</onCamera>
+
+        <!-- THIS WAS THE BUG. RimWorld's volume scale is NOT 0-1. At 0.9~1.0 the clip
+             played roughly 40x quieter than a comparable vanilla notification, i.e.
+             effectively inaudible. Vanilla reference points:
+                 Message_PositiveEvent  40
+                 LetterArrive_Good      41
+                 Message_PawnDeath      80
+                 TinyBell                9
+             38~42 matches a positive-event notification and keeps a little natural
+             variation. The joinSoundVolume setting still multiplies on top. -->
+        <volumeRange>38~42</volumeRange>
 
         <!-- Pitch range: 1.0 = no shift. Widen slightly for variety. -->
         <pitchRange>
@@ -61,16 +72,18 @@
     <defName>JoinSound_TraderArrived</defName>
     <label>Trader arrived at colony</label>
 
-    <!-- MapOnly: required to avoid the 1.6 config validation error that breaks
-         sounds marked context=Any without an explicit on-camera flag. -->
+    <!-- Same reasoning as JoinSound_PawnJoined above. -->
     <context>MapOnly</context>
 
     <subSounds>
       <li>
-        <volumeRange>
-          <min>0.85</min>
-          <max>0.95</max>
-        </volumeRange>
+        <!-- Played through SoundInfo.OnCamera() - see the note above. -->
+        <onCamera>True</onCamera>
+
+        <!-- Was 0.85~0.95 on a scale where vanilla notifications sit at 20-40, so it
+             never audibly played. Kept a little below the join sound so a trader
+             arriving is less attention-grabbing than a new colonist. -->
+        <volumeRange>28~32</volumeRange>
 
         <pitchRange>
           <min>0.95</min>
